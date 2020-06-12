@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/UsersFragment">
+
+    <fragment
+        android:id="@+id/UsersFragment"
+        android:name="com.phunguyen.stackoverflowuser.ui.user.UsersFragment"
+        android:label="UsersFragment"
+        tools:layout="@layout/fragment_users">
+
+        <action
+            android:id="@+id/action_UsersFragment_to_ReputationFragment"
+            app:destination="@id/ReputationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ReputationFragment"
+        android:label="ReputationFragment"
+        android:name="com.phunguyen.stackoverflowuser.ui.reputation.ReputationFragment"
+        tools:layout="@layout/fragment_reputation">
+        <argument
+            android:name="userID"
+            app:argType="string" />
+       <!-- <action
+            android:id="@+id/action_SecondFragment_to_UsersFragment"
+            app:destination="@id/UsersFragment" />-->
+    </fragment>
+</navigation>

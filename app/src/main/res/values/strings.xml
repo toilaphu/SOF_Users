@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">StackOverflowUser</string>
+    <string name="action_show_bookmarks_settings">Show Bookmarks</string>
+    <string name="user_reputation">Reputation: %s</string>
+    <string name="user_last_access_date">Last Access Date: %s</string>
+    <string name="reputation_created_at">Created At: %s</string>
+    <string name="reputation_change">Change: %s</string>
+    <string name="reputation_type">Type: %s</string>
+    <string name="reputation_post_id">Post ID: %s</string>
+    <string name="retry_btn">Retry</string>
+    <string name="unknown_error">Unknown Error</string>
+</resources>

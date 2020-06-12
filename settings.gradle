@@ -1,0 +1,2 @@
+rootProject.name='StackOverflowUser'
+include ':app'
