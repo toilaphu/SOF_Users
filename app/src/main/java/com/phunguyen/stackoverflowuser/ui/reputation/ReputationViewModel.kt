@@ -2,12 +2,14 @@ package com.phunguyen.stackoverflowuser.ui.reputation
 
 import androidx.lifecycle.*
 import com.phunguyen.stackoverflowuser.repository.ReputationRepository
+import com.phunguyen.stackoverflowuser.testing.OpenForTesting
 import com.phunguyen.stackoverflowuser.valueobject.Resource
 import com.phunguyen.stackoverflowuser.valueobject.Status
 import com.phunguyen.stackoverflowuser.valueobject.User
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@OpenForTesting
 class ReputationViewModel @Inject constructor(private val repository: ReputationRepository) :
     ViewModel() {
 
@@ -42,10 +44,7 @@ class ReputationViewModel @Inject constructor(private val repository: Reputation
 
         fun loadMoreReputations(userID: String) {
             nextPageLiveData = repository.loadMoreReputations(userID)
-            loadMoreState.value = LoadMoreState(
-                isRunning = true,
-                errorMessage = null
-            )
+            loadMoreState.value = LoadMoreState(isRunning = true, errorMessage = null)
             nextPageLiveData?.observeForever(this)
         }
 
@@ -57,19 +56,13 @@ class ReputationViewModel @Inject constructor(private val repository: Reputation
                     Status.SUCCESS -> {
                         unregister()
                         loadMoreState.setValue(
-                            LoadMoreState(
-                                isRunning = false,
-                                errorMessage = null
-                            )
+                            LoadMoreState(isRunning = false, errorMessage = null)
                         )
                     }
                     Status.ERROR -> {
                         unregister()
                         loadMoreState.setValue(
-                            LoadMoreState(
-                                isRunning = false,
-                                errorMessage = result.message
-                            )
+                            LoadMoreState(isRunning = false, errorMessage = result.message)
                         )
                     }
                     Status.LOADING -> {

@@ -2,6 +2,7 @@ package com.phunguyen.stackoverflowuser.ui.user
 
 import androidx.lifecycle.*
 import com.phunguyen.stackoverflowuser.repository.UserRepository
+import com.phunguyen.stackoverflowuser.testing.OpenForTesting
 import com.phunguyen.stackoverflowuser.ui.adapter.UserAdapter
 import com.phunguyen.stackoverflowuser.valueobject.Resource
 import com.phunguyen.stackoverflowuser.valueobject.Status
@@ -9,15 +10,15 @@ import com.phunguyen.stackoverflowuser.valueobject.User
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@OpenForTesting
 class UsersViewModel @Inject constructor(private val repository: UserRepository) : ViewModel() {
 
     private val nextPageHandler = NextPageHandler(repository)
+    private val _isReload = MutableLiveData<Boolean>()
+    private var _isBookmark = false
 
     val loadMoreStatus: LiveData<LoadMoreState>
         get() = nextPageHandler.loadMoreState
-
-    private val _isReload = MutableLiveData<Boolean>()
-    private var _isBookmark = false
 
     var userList = _isReload.switchMap {
         repository.loadUsers(_isBookmark)
@@ -27,7 +28,7 @@ class UsersViewModel @Inject constructor(private val repository: UserRepository)
         _isReload.value = true
     }
 
-    fun displayWithBookmarkOption(isBookmark: Boolean) {
+    fun userListWithBookmarkFilter(isBookmark: Boolean) {
         _isBookmark = isBookmark
         _isReload.value = true
     }
@@ -103,12 +104,9 @@ class UsersViewModel @Inject constructor(private val repository: UserRepository)
             nextPageLiveData = null
         }
 
-        private fun reset() {
+        fun reset() {
             unregister()
-            loadMoreState.value = LoadMoreState(
-                isRunning = false,
-                errorMessage = null
-            )
+            loadMoreState.value = LoadMoreState(isRunning = false, errorMessage = null)
         }
     }
 

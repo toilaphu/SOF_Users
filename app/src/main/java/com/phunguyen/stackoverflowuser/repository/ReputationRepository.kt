@@ -7,11 +7,13 @@ import com.phunguyen.stackoverflowuser.api.CommonListResponse
 import com.phunguyen.stackoverflowuser.api.SOFService
 import com.phunguyen.stackoverflowuser.db.AppDatabase
 import com.phunguyen.stackoverflowuser.db.ReputationDao
+import com.phunguyen.stackoverflowuser.testing.OpenForTesting
 import com.phunguyen.stackoverflowuser.valueobject.Reputation
 import com.phunguyen.stackoverflowuser.valueobject.Resource
 import com.phunguyen.stackoverflowuser.valueobject.User
 import javax.inject.Inject
 
+@OpenForTesting
 class ReputationRepository @Inject constructor(
     private val appExecutors: AppExecutors,
     private val database: AppDatabase,
@@ -43,7 +45,7 @@ class ReputationRepository @Inject constructor(
             }
 
             override fun loadFromDb(): LiveData<List<Reputation>> {
-                return reputationDao.getReputations()
+                return reputationDao.getReputations(userID)
             }
 
             override fun createCall(): LiveData<ApiResponse<CommonListResponse<Reputation>>> {

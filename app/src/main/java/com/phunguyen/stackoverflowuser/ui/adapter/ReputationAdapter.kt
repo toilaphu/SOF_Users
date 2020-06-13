@@ -56,7 +56,7 @@ class ReputationAdapter : ListAdapter<Reputation, RecyclerView.ViewHolder>(DIFF_
                     R.string.reputation_change, item.change
                 )
                 postId.text = resources.getString(
-                    R.string.reputation_post_id, (item.postID?:0)
+                    R.string.reputation_post_id, (item.postID ?: 0)
                 )
                 creationDate.text = resources.getString(
                     R.string.reputation_created_at, item.createdAt.toFormattedDate()

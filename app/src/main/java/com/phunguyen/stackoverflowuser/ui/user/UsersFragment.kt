@@ -90,7 +90,7 @@ class UsersFragment : Fragment(), Injectable {
             }
         })
         sharedViewModel.showBookmarkOnlySelected.observe(viewLifecycleOwner, Observer {
-            userViewModel.displayWithBookmarkOption(it)
+            userViewModel.userListWithBookmarkFilter(it)
         })
         binding.callback = object : RetryCallback {
             override fun retry() {

@@ -21,9 +21,10 @@ class FetchNextReputationPageTask constructor(
     val liveData: LiveData<Resource<Boolean>> = _liveData
 
     override fun run() {
-        val totalItem = database.reputationDao().getCount()
+        val totalItem = database.reputationDao().getCount(userID)
         val newValue = try {
-            val response = sofService.getReputationsCallable(userID,(totalItem / PAGE_SIZE) + 1).execute()
+            val response =
+                sofService.getReputationsCallable(userID, (totalItem / PAGE_SIZE) + 1).execute()
             when (val apiResponse = ApiResponse.create(response)) {
                 is ApiSuccessResponse -> {
                     database.runInTransaction {

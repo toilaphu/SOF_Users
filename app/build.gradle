@@ -2,7 +2,15 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+
+apply plugin: 'kotlin-allopen'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+allOpen {
+    // allows mocking for classes w/o directly opening them for release builds
+    annotation 'com.phunguyen.stackoverflowuser.testing.OpenClass'
+}
+
 android {
     compileSdkVersion build_versions.compile_sdk
     buildToolsVersion build_versions.build_tools
@@ -73,6 +81,10 @@ dependencies {
     kapt deps.lifecycle.compiler
 
     testImplementation deps.junit
+    testImplementation deps.truth
+    testImplementation deps.mock_web_server
+    testImplementation deps.arch_core.testing
+    testImplementation deps.mockito.core
 
     androidTestImplementation deps.atsl.ext_junit
     androidTestImplementation deps.espresso.core

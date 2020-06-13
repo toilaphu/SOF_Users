@@ -19,9 +19,9 @@ interface ReputationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(user: List<Reputation>)
 
-    @Query("SELECT * FROM sof_reputation ORDER BY createdAt Desc")
-    fun getReputations(): LiveData<List<Reputation>>
+    @Query("SELECT * FROM sof_reputation WHERE userID = :userID ORDER BY createdAt Desc")
+    fun getReputations(userID: String): LiveData<List<Reputation>>
 
-    @Query("SELECT COUNT(*) FROM sof_reputation")
-    fun getCount(): Int
+    @Query("SELECT COUNT(*) FROM sof_reputation WHERE userID = :userID")
+    fun getCount(userID: String): Int
 }
